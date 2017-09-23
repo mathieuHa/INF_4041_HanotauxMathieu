@@ -1,0 +1,3 @@
+mh_store_homepage:
+    path:     /
+    defaults: { _controller: MHStoreBundle:Default:index }
