@@ -1,0 +1,10 @@
+{% extends "MHStoreBundle::layout.html.twig" %}
+
+
+{% block body %}
+
+    <p> Visualisation d'une annonce </p>
+
+    {{ product.name }} <a href="{{ path('mh_store_delete', {'id' : product.id}) }}"> Supprimer</a>
+
+{% endblock %}

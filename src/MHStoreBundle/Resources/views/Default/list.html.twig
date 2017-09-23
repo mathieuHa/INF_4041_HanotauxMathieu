@@ -1,0 +1,14 @@
+{% extends "MHStoreBundle::layout.html.twig" %}
+
+
+{% block body %}
+
+    <p> Liste </p>
+
+    {% for product in products if products is not empty %}
+        {{ product.name }}<i> {{ product.description }} </i><a href="{{ path('mh_store_view', {'id': product.id}) }}">Voir</a><br>
+    {% endfor %}
+
+
+
+{% endblock %}
