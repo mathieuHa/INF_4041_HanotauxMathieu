@@ -3,8 +3,23 @@
 
 {% block body %}
 
-    <p> Visualisation d'une annonce </p>
+    <h3> Visualisation d'une annonce </h3>
 
-    {{ product.name }} <a href="{{ path('mh_store_delete', {'id' : product.id}) }}"> Supprimer</a>
+    <hr>
+    <div class="row">
+        <div class="col-md-8">
+            <h4 style="color: #528eff;">{{ product.name }}</h4>   <br>
+            <br>
+            {{ product.description }}
+        </div>
+
+        <div class="col-md-4">
+            Prix : {{ product.price }} €<br>
+            <br>
+            <a class="btn btn-success" href="{{ path('mh_store_buy', {'id' : product.id}) }}"> acheter</a>
+        </div>
+
+    </div>
+
 
 {% endblock %}

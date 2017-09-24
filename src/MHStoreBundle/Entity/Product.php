@@ -22,11 +22,42 @@ class Product
     private $id;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="price", type="float")
+     * @ORM\Column(name="price", type="integer")
      */
     private $price;
+    
+    /**
+     * @ORM\ManyToOne(targetEntity="MHStoreBundle\Entity\User", inversedBy="sales")
+     */
+    private $seller;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="MHStoreBundle\Entity\User", inversedBy="purchases")
+     */
+    private $buyer;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="sold", type="boolean")
+     */
+    private $sold;
+
+    /**
+     * @ORM\Column(name="setup_date", type="datetime")
+     */
+    private $setupDate;
+
+    /**
+     * @ORM\Column(name="sold_date", type="datetime", nullable=true)
+     */
+    private $soldDate;
+
+
+
+
 
     /**
      * @var string
@@ -42,12 +73,12 @@ class Product
      */
     private $description;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="bid", type="boolean")
-     */
-    private $bid;
+
+    public function __construct()
+    {
+        $this->sold = false;
+        $this->setSetupDate(new \DateTime());
+    }
 
 
     /**
@@ -132,28 +163,124 @@ class Product
         return $this->description;
     }
 
+
     /**
-     * Set bid
+     * Set seller
      *
-     * @param boolean $bid
+     * @param \MHStoreBundle\Entity\User $seller
      *
      * @return Product
      */
-    public function setBid($bid)
+    public function setSeller(\MHStoreBundle\Entity\User $seller = null)
     {
-        $this->bid = $bid;
+        $this->seller = $seller;
 
         return $this;
     }
 
     /**
-     * Get bid
+     * Get seller
      *
-     * @return bool
+     * @return \MHStoreBundle\Entity\User
      */
-    public function getBid()
+    public function getSeller()
     {
-        return $this->bid;
+        return $this->seller;
+    }
+
+    /**
+     * Set buyer
+     *
+     * @param \MHStoreBundle\Entity\User $buyer
+     *
+     * @return Product
+     */
+    public function setBuyer(\MHStoreBundle\Entity\User $buyer = null)
+    {
+        $this->buyer = $buyer;
+
+        return $this;
+    }
+
+    /**
+     * Get buyer
+     *
+     * @return \MHStoreBundle\Entity\User
+     */
+    public function getBuyer()
+    {
+        return $this->buyer;
+    }
+
+    /**
+     * Set sold
+     *
+     * @param boolean $sold
+     *
+     * @return Product
+     */
+    public function setSold($sold)
+    {
+        $this->sold = $sold;
+
+        return $this;
+    }
+
+    /**
+     * Get sold
+     *
+     * @return boolean
+     */
+    public function getSold()
+    {
+        return $this->sold;
+    }
+
+    /**
+     * Set setupDate
+     *
+     * @param \DateTime $setupDate
+     *
+     * @return Product
+     */
+    public function setSetupDate($setupDate)
+    {
+        $this->setupDate = $setupDate;
+
+        return $this;
+    }
+
+    /**
+     * Get setupDate
+     *
+     * @return \DateTime
+     */
+    public function getSetupDate()
+    {
+        return $this->setupDate;
+    }
+
+    /**
+     * Set soldDate
+     *
+     * @param \DateTime $soldDate
+     *
+     * @return Product
+     */
+    public function setSoldDate($soldDate)
+    {
+        $this->soldDate = $soldDate;
+
+        return $this;
+    }
+
+    /**
+     * Get soldDate
+     *
+     * @return \DateTime
+     */
+    public function getSoldDate()
+    {
+        return $this->soldDate;
     }
 }
-

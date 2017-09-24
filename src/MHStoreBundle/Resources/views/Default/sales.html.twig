@@ -1,0 +1,49 @@
+{% extends "MHStoreBundle::layout.html.twig" %}
+
+
+{% block body %}
+
+    <h3> Mes ventes </h3>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-8">
+            <h4 style="color: #528eff;">{{ user.username }}</h4>   <br>
+            <br>
+        </div>
+
+    </div><div class="card">
+    <div class="card-body">
+
+    <div class="row">
+        {% for product in products if products is not empty %}
+            <div class="col-md-3">
+                <strong style="color: #528eff;">{{ product.name }}</strong>
+            </div>
+            <div class="col-md-5">
+                <i> {{ product.description }} </i>
+            </div>
+            <div class="col-md-1">
+                {{ product.price }} € &nbsp; &nbsp; &nbsp;
+            </div>
+            <div class="col-md-3">
+                <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                {% if product.sold %}
+                    <button  class="btn btn-warning btn-sm">sold</button>
+                {% else %}
+                    <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                {% endif %}
+
+            </div>
+            <br>
+            <br>
+
+        {% endfor %}
+
+    </div>
+
+    </div>
+</div>
+
+
+{% endblock %}

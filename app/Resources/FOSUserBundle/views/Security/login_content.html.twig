@@ -1,0 +1,40 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% if error %}
+    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+{% endif %}
+
+<form action="{{ path("fos_user_security_check") }}" method="post">
+    {% if csrf_token %}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    {% endif %}
+    <div class="form-group form-group-lg">
+        <input type="text" class="form-control" placeholder="{{ 'security.login.username'|trans }}" id="username" name="_username" value="{{ last_username }}" required="required" />
+        <br>
+        <input type="password" placeholder="{{ 'security.login.password'|trans }}" class="form-control" id="password" name="_password" required="required" />
+        <br>
+        <div class="form-group col-lg-offset-3 col-lg-3 col-md-4 col-xs-12 col-sm-4">
+            <div class="checkbox">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
+            <input type="submit"
+                   class="btn btn-success "
+                   id="_submit"
+                   name="_submit"
+                   value="{{ 'security.login.submit'|trans }}" />
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <a class="btn btn-warning" href="{{ path('fos_user_resetting_request') }}"><span class="glyphicon glyphicon-repeat"></span> Mot de passe oublié</a>
+        </div>
+        <br>
+
+        <a class="btn btn-group-justified btn-primary" href="{{ path('fos_user_registration_register') }}">Pas de compte ? S'inscrire</a>
+
+
+
+    </div>
+</form>

@@ -10,6 +10,7 @@
     {% block stylesheets %}
 
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     {% endblock %}
 
@@ -23,6 +24,16 @@
             Un site de vente sécurisé entre particuliers <br>
         </p>
     </div>
+    <div class="alert-info"> {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            Connecté en tant que {{ app.user.username }}
+            -
+            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+        {% endif %}
+    </div>
+
+    <br>
 
     <div class="row">
         <div id="menu" class="col-md-2">
@@ -30,7 +41,11 @@
             <ul class="nav flex-column nav-pills">
                 <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_home') }}">Accueil </a> </li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
+                {% if app.user %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_purchases', {'id':app.user.id}) }}">Mes Achats </a> </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_sales', {'id':app.user.id}) }}">Mes ventes </a> </li>
+                {% endif %}
             </ul>
             <br>
         </div>

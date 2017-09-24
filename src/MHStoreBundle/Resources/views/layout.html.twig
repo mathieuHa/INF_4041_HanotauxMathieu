@@ -8,6 +8,20 @@
     {% block bundle_body %}
     {% endblock %}
 
+    {% for key, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="alert alert-{{ key }}">
+                {{ message|trans({}, 'FOSUserBundle') }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
+    {% for flash_message in app.session.flashBag.get('notice') %}
+        <div class="well">
+            {{ flash_message }}
+        </div>
+    {% endfor %}
+
 {% endblock %}
 
 {% block javascript %}

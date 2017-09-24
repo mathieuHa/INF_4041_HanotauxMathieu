@@ -2,10 +2,12 @@
 # https://symfony.com/doc/current/security.html
 security:
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    encoders:
+        MHStoreBundle\Entity\User: sha512
+
     providers:
-        in_memory:
-            memory: ~
+         main:
+              id: fos_user.user_provider.username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,11 +16,22 @@ security:
             security: false
 
         main:
-            anonymous: ~
-            # activate different ways to authenticate
+              pattern:      ^/
+              anonymous:    true
+              provider:     main
+              form_login:
+                  login_path: fos_user_security_login
+                  check_path: fos_user_security_check
+              logout:
+                  path:       fos_user_security_logout
+                  target:     fos_user_security_login
+              remember_me:
+                  secret:     "%secret%"
+    access_control:
+         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: /home, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: /list, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/, role: ROLE_USER }
 
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~

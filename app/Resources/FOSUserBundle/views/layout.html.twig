@@ -1,0 +1,37 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="page-header">
+        <h1>
+        {% block fos_title %}
+        {% endblock %}
+        </h1>
+    </div>
+
+
+    {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+            <div class="card">
+                <div class="card-body">
+                    {% for message in messages %}
+                        <div class="flash-{{ type }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card">
+        <div class="card-body">
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+    </div>
+
+{% endblock %}

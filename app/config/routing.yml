@@ -1,23 +1,11 @@
-mh_store_home:
-    path:   /
-    defaults:  { _controller: MHStoreBundle:Default:index }
+root:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /home
+        permanent: true
+mh_store:
+    resource: "@MHStoreBundle/Resources/config/routing.yml"
 
-mh_store_list:
-    path:   /list
-    defaults:  { _controller: MHStoreBundle:Default:list }
-
-mh_store_view:
-    path:   /view/{id}
-    defaults:  { _controller: MHStoreBundle:Default:view }
-    requirements:
-            id: '\d+'
-
-mh_store_add:
-    path:   /add
-    defaults:  { _controller: MHStoreBundle:Default:add }
-
-mh_store_delete:
-    path:   /delete/{id}
-    defaults:  { _controller: MHStoreBundle:Default:delete }
-    requirements:
-            id: '\d+'
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

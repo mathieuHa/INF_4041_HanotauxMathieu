@@ -1,3 +1,41 @@
-mh_store_homepage:
-    path:     /
-    defaults: { _controller: MHStoreBundle:Default:index }
+mh_store_home:
+    path:   /home
+    defaults:  { _controller: MHStoreBundle:Default:index }
+
+mh_store_list:
+    path:   /list
+    defaults:  { _controller: MHStoreBundle:Default:list }
+
+mh_store_view:
+    path:   /view/{id}
+    defaults:  { _controller: MHStoreBundle:Default:view }
+    requirements:
+            id: '\d+'
+
+mh_store_buy:
+    path:   /buy/{id}
+    defaults:  { _controller: MHStoreBundle:Default:buy }
+    requirements:
+            id: '\d+'
+
+mh_store_sales:
+    path:   /sales/{id}
+    defaults:  { _controller: MHStoreBundle:Default:sales }
+    requirements:
+            id: '\d+'
+
+mh_store_purchases:
+    path:   /purchases/{id}
+    defaults:  { _controller: MHStoreBundle:Default:purchases }
+    requirements:
+            id: '\d+'
+
+mh_store_add:
+    path:   /add
+    defaults:  { _controller: MHStoreBundle:Default:add }
+
+mh_store_delete:
+    path:   /delete/{id}
+    defaults:  { _controller: MHStoreBundle:Default:delete }
+    requirements:
+            id: '\d+'

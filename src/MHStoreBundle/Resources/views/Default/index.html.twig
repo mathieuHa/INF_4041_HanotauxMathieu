@@ -3,6 +3,23 @@
 
 {% block body %}
 
-    <p> Acceuil </p>
+    <h3> Accueil </h3>
+
+    <hr>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="{{ path('mh_store_list') }}" class="btn btn-lg btn-primary">Voir la liste des annonces </a>
+        </div>
+        {% if app.user %}
+            <div class="col-md-6">
+                <a href="{{ path('mh_store_add') }}" class="btn btn-lg btn-success">Ajouter une annonce</a>
+            </div>
+        {% else %}
+            <div class="col-md-6">
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-lg btn-warning">Se connecter</a>
+            </div>
+        {% endif %}
+
+    </div>
 
 {% endblock %}

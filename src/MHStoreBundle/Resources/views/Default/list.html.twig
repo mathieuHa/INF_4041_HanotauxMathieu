@@ -3,12 +3,34 @@
 
 {% block body %}
 
-    <p> Liste </p>
+    <h3> Liste des annonces </h3>
 
-    {% for product in products if products is not empty %}
-        {{ product.name }}<i> {{ product.description }} </i><a href="{{ path('mh_store_view', {'id': product.id}) }}">Voir</a><br>
-    {% endfor %}
+    <hr>
 
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+
+                {% for product in products if products is not empty %}
+                    <div class="col-md-3">
+                        <strong style="color: #528eff;">{{ product.name }}</strong>
+                    </div>
+                    <div class="col-md-6">
+                        <i> {{ product.description }} </i>
+                    </div>
+                    <div class="col-md-2">
+                        {{ product.price }} € &nbsp; &nbsp; &nbsp;
+                    </div>
+                    <div class="col-md-1">
+                        <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                    </div>
+                    <br>
+                    <br>
+                {% endfor %}
+
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}

@@ -16,6 +16,7 @@ class DefaultController extends Controller
 
     public function addAction(Request $request)
     {
+        $user = $this->getUser();
         $product = new Product();
         $form = $this
             ->get('form.factory')
@@ -23,6 +24,7 @@ class DefaultController extends Controller
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $product->setSeller($user);
             $em->persist($product);
             $em->flush();
 
@@ -35,6 +37,37 @@ class DefaultController extends Controller
 
         return $this->render('MHStoreBundle:Default:add.html.twig', array(
             'form' => $form->createView()
+        ));
+    }
+
+    public function buyAction($id, Request $request)
+    {
+        $user = $this->getUser();
+
+        $product = $this
+            ->getDoctrine()
+            ->getRepository('MHStoreBundle:Product')
+            ->find($id);
+        $form = $this->get('form.factory')->create();
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $product->setBuyer($user);
+            $product->setSold(true);
+            $product->setSoldDate(new \DateTime());
+            $em->persist($product);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Produit acheté');
+
+            return $this->redirectToRoute('mh_store_view', array(
+                'id' => $product->getId()
+            ));
+        }
+
+        return $this->render('MHStoreBundle:Default:buy.html.twig', array(
+            'form' => $form->createView(),
+            'product' => $product
         ));
     }
 
@@ -55,10 +88,40 @@ class DefaultController extends Controller
         $products = $this
             ->getDoctrine()
             ->getRepository('MHStoreBundle:Product')
-            ->findAll();
+            ->findAllActiveProduct();
 
         return $this->render('MHStoreBundle:Default:list.html.twig', array(
             'products' => $products
+        ));
+    }
+
+    public function salesAction()
+    {
+        $user = $this->getUser();
+
+        $products = $this
+            ->getDoctrine()
+            ->getRepository('MHStoreBundle:Product')
+            ->findBySeller($user->getId());
+
+        return $this->render('MHStoreBundle:Default:sales.html.twig', array(
+            'products' => $products,
+            'user' => $user
+        ));
+    }
+
+    public function purchasesAction()
+    {
+        $user = $this->getUser();
+
+        $products = $this
+            ->getDoctrine()
+            ->getRepository('MHStoreBundle:Product')
+            ->findByBuyer($user->getId());
+
+        return $this->render('MHStoreBundle:Default:purchases.html.twig', array(
+            'products' => $products,
+            'user' => $user
         ));
     }
 

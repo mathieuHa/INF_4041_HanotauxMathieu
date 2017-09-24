@@ -10,4 +10,15 @@ namespace MHStoreBundle\Repository;
  */
 class ProductRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findAllActiveProduct()
+    {
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->where('p.sold = :state')
+            ->setParameter('state', false);
+        ;
+
+        // On retourne ces résultats
+        return $qb->getQuery()->getResult();
+    }
 }
