@@ -9,25 +9,36 @@
 
     <div class="card">
     <div class="card-body">
-
-    <div class="row">
+        <br>
         {% for product in products if products is not empty %}
-            <div class="col-md-3">
-                <strong style="color: #528eff;">{{ product.name }}</strong>
-            </div>
-            <div class="col-md-5">
-                <i> {{ product.description }} </i>
-            </div>
-            <div class="col-md-2">
-                {{ product.price }} € &nbsp; &nbsp; &nbsp;
-            </div>
-            <div class="col-md-2">
-                <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+            <div class="row">
+
+                <div class="col-md-4">
+                        <img
+                                src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.id ~ '.' ~ product.image.url) }}"
+                                alt="{{ product.image.alt }}" width="100%"
+                        />
+                    </div>
+                    <div class="col-md-5">
+                        <h4 style="color: #528eff;">{{ product.name }}</h4>
+                        <i>{{ product.description }}</i> <br>
+                        <br>
+                        <small class="text-muted">
+                            Acheté le {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                        </small>
+                    </div>
+
+                    <div class="col-md-2">
+                        Prix : {{ product.price }} €
+                    </div>
+                    <div class="col-md-1">
+                        <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                    </div>
             </div>
             <br>
+            <hr>
             <br>
         {% endfor %}
-    </div>
     </div>
     </div>
 
