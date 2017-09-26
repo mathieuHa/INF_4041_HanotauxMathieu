@@ -1,0 +1,21 @@
+
+    <div class="row">
+        <div class="col-md-4">
+            <img
+                    src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.id ~ '.' ~ product.image.url) }}"
+                    alt="{{ product.image.alt }}" width="100%" height="100px"
+            />
+        </div>
+        <div class="col-md-4">
+        <h4 style="color: #528eff;">{{ product.name }}</h4>
+            <i>{{ product.description }}</i>
+        </div>
+
+        <div class="col-md-2">
+            Prix : {{ product.price }} €
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-success" href="{{ path('mh_store_buy', {'id' : product.id}) }}"> acheter</a>
+        </div>
+
+    </div>

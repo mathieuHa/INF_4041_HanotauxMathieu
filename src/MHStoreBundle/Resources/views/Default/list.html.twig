@@ -9,26 +9,18 @@
 
     <div class="card">
         <div class="card-body">
-            <div class="row">
+            <br>
+            {% for product in products %}
+                <div class="row">
+                    {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
+                </div>
+                <br>
+                {% if not loop.last %}
+                <hr><br>
 
-                {% for product in products if products is not empty %}
-                    <div class="col-md-3">
-                        <strong style="color: #528eff;">{{ product.name }}</strong>
-                    </div>
-                    <div class="col-md-6">
-                        <i> {{ product.description }} </i>
-                    </div>
-                    <div class="col-md-2">
-                        {{ product.price }} € &nbsp; &nbsp; &nbsp;
-                    </div>
-                    <div class="col-md-1">
-                        <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
-                    </div>
-                    <br>
-                    <br>
-                {% endfor %}
+                {% endif %}
+            {% endfor %}
 
-            </div>
         </div>
     </div>
 

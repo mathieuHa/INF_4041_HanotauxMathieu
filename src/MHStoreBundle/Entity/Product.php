@@ -27,6 +27,11 @@ class Product
      * @ORM\Column(name="price", type="integer")
      */
     private $price;
+
+    /**
+     * @ORM\OneToOne(targetEntity="MHStoreBundle\Entity\Image", cascade={"persist", "remove"})
+     */
+    private $image;
     
     /**
      * @ORM\ManyToOne(targetEntity="MHStoreBundle\Entity\User", inversedBy="sales")
@@ -282,5 +287,29 @@ class Product
     public function getSoldDate()
     {
         return $this->soldDate;
+    }
+
+    /**
+     * Set image
+     *
+     * @param \MHStoreBundle\Entity\Image $image
+     *
+     * @return Product
+     */
+    public function setImage(\MHStoreBundle\Entity\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \MHStoreBundle\Entity\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 }
