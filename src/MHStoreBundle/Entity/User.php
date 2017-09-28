@@ -23,9 +23,9 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @var float
+     * @var int
      *
-     * @ORM\Column(name="credit", type="float")
+     * @ORM\Column(name="credit", type="integer")
      */
     private $credit;
 
@@ -39,7 +39,9 @@ class User extends BaseUser
     */
     private $sales;
 
-
+    public function recharge($number){
+        $this->credit+=$number;
+    }
 
 
     /**

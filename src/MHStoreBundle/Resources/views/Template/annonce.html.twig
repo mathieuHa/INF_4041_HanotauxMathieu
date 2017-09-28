@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <img
                     src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.id ~ '.' ~ product.image.url) }}"
-                    alt="{{ product.image.alt }}" width="100%" height="100px"
+                    alt="{{ product.image.alt }}"  height="150px"
             />
         </div>
         <div class="col-md-4">
@@ -14,8 +14,16 @@
         <div class="col-md-2">
             Prix : {{ product.price }} €
         </div>
+        {% if not product.sold %}
         <div class="col-md-2">
             <a class="btn btn-success" href="{{ path('mh_store_buy', {'id' : product.id}) }}"> acheter</a>
         </div>
+        {% else %}
+        <div class="col-md-2">
+            <small class="text-muted">
+            Acheté le {{ product.soldDate | date("m/d/Y à H:m:s")}}
+            </small>
+        </div>
+        {% endif %}
 
     </div>

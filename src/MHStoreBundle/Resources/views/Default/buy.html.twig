@@ -1,12 +1,17 @@
 {% extends "MHStoreBundle::layout.html.twig" %}
 
 
-{% block body %}
+{% block bundle_body %}
 
     <h3> Achat du produit </h3>
 
     <hr>
+    <div class="row">
+    {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
+    </div>
+    <br>
 
+    <div class="row">
     <form action="{{ path('mh_store_buy', {'id': product.id}) }}" method="post">
         <a href="{{ path('mh_store_view', {'id': product.id}) }}" class="btn btn-default">
             <i class="glyphicon glyphicon-chevron-left"></i>
@@ -17,6 +22,7 @@
 
         {{ form_rest(form) }}
     </form>
+    </div>
 
 
 

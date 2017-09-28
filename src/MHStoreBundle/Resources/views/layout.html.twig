@@ -5,26 +5,31 @@
 {% endblock %}
 
 {% block body %}
-    {% block bundle_body %}
-    {% endblock %}
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
 
     {% for key, messages in app.session.flashbag.all() %}
         {% for message in messages %}
+            {{ key }}
             <div class="alert alert-{{ key }}">
                 {{ message|trans({}, 'FOSUserBundle') }}
             </div>
         {% endfor %}
     {% endfor %}
 
-    {% for flash_message in app.session.flashBag.get('notice') %}
-        <div class="well">
-            {{ flash_message }}
-        </div>
-    {% endfor %}
+
+    {% block bundle_body %}
+    {% endblock %}
+
+
 
 {% endblock %}
 
 {% block javascript %}
+    {{ parent() }}
     {% block bundle_javascript %}
     {% endblock %}
 {% endblock javascript %}

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <title>{% block title %}Titre{% endblock %}</title>
+    <title>{% block title %}Le Bon Deal{% endblock %}</title>
 
     {% block stylesheets %}
 
@@ -13,46 +13,62 @@
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
     {% endblock %}
-
 </head>
 
 <body>
-<div class="container">
+
+<nav class="navbar navbar-expand-md navbar-dark  bg-dark">
+    <a class="navbar-brand" href="#">Le Bon Deal</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+            <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_home') }}">Accueil </a> </li>
+            </li>
+
+            <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
+            {% if app.user %}
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_purchases', {'id':app.user.id}) }}">Mes Achats </a> </li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_sales', {'id':app.user.id}) }}">Mes ventes </a> </li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_buy_credit', {'id':app.user.id}) }}">Recharger le compte </a> </li>
+            {% endif %}
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+<div class="container-fluid">
+
+
     <div id="header" class="jumbotron">
         <h1><a href="{{ path('mh_store_home') }}">Le Bon Deal</a></h1>
         <p>
             Un site de vente sécurisé entre particuliers <br>
         </p>
     </div>
-    <div class="alert-info"> {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <div class="alert alert-info"> {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
             Connecté en tant que {{ app.user.username }}
-            -
-            <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+            - Credits : {{ app.user.credit }}
+            <div class="float-right"><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
         {% else %}
             <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-        {% endif %}
+        {% endif %}&nbsp;
+         </div>
     </div>
 
     <br>
-
+    <div class="container-fluid">
     <div class="row">
-        <div id="menu" class="col-md-2">
-            <h3>Menu</h3>
-            <ul class="nav flex-column nav-pills">
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_home') }}">Accueil </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
-                {% if app.user %}
-                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_purchases', {'id':app.user.id}) }}">Mes Achats </a> </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_sales', {'id':app.user.id}) }}">Mes ventes </a> </li>
-                {% endif %}
-            </ul>
-            <br>
-        </div>
-        <div id="content" class="col-md-10">
+        <div id="content" class="col-md-12 col-lg-12">
             {% block body %}
             {% endblock %}
         </div>
+    </div>
     </div>
 
     <hr>
