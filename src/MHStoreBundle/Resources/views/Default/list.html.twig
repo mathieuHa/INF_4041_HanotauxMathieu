@@ -10,16 +10,20 @@
     <div class="card">
         <div class="card-body">
             <br>
-            {% for product in products %}
-                <div class="row">
-                    {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
-                </div>
-                <br>
-                {% if not loop.last %}
-                <hr><br>
+            {% if products is empty %}
+                Il n'y a aucun produit en vente actuellement, revenez plus tard.
+            {% else %}
+                {% for product in products %}
+                    <div class="row">
+                        {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
+                    </div>
+                    <br>
+                    {% if not loop.last %}
+                    <hr><br>
 
-                {% endif %}
-            {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
 
         </div>
     </div>

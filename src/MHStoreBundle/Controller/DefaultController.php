@@ -8,6 +8,7 @@ use MHStoreBundle\Form\CreditType;
 use MHStoreBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -51,6 +52,11 @@ class DefaultController extends Controller
             ->getDoctrine()
             ->getRepository('MHStoreBundle:Product')
             ->find($id);
+
+        if (NULL == $product){
+            throw new NotFoundHttpException("Le Produit ".$id." n'existe pas");
+        }
+
         $price = $product->getPrice();
 
         if ($price<=$credit){
@@ -119,6 +125,10 @@ class DefaultController extends Controller
             ->getRepository('MHStoreBundle:Product')
             ->find($id);
 
+        if (NULL == $product){
+            throw new NotFoundHttpException("Le Produit ".$id." n'existe pas");
+        }
+
         return $this->render('MHStoreBundle:Default:view.html.twig', array(
             'product' => $product
         ));
@@ -172,6 +182,11 @@ class DefaultController extends Controller
             ->getDoctrine()
             ->getRepository('MHStoreBundle:Product')
             ->find($id);
+
+        if (NULL == $product){
+            throw new NotFoundHttpException("Le Produit ".$id." n'existe pas");
+        }
+
         $em = $this
             ->getDoctrine()
             ->getManager();
