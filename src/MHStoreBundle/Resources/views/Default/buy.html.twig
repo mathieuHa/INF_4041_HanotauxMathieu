@@ -7,21 +7,21 @@
 
     <hr>
     <div class="row">
-    {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
+        {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
     </div>
     <br>
 
     <div class="row">
-    <form action="{{ path('mh_store_buy', {'id': product.id}) }}" method="post">
-        <a href="{{ path('mh_store_view', {'id': product.id}) }}" class="btn btn-default">
-            <i class="glyphicon glyphicon-chevron-left"></i>
-            Retour au produit
-        </a>
+        <form action="{{ path('mh_store_buy', {'id': product.id}) }}" method="post">
+            <a href="{{ path('mh_store_view', {'id': product.id}) }}" class="btn btn-default">
+                <i class="glyphicon glyphicon-chevron-left"></i>
+                Retour au produit
+            </a>
 
-        <input type="submit" value="Acheter" class="btn btn-success" />
+            <input type="submit" value="Acheter" class="btn btn-success" />
 
-        {{ form_rest(form) }}
-    </form>
+            {{ form_rest(form) }}
+        </form>
     </div>
 
 

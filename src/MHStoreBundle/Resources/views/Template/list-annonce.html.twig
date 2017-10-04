@@ -5,7 +5,7 @@
                     alt="{{ product.image.alt }}" height="150px"
             />
         </div>
-        <div class="col-md-5">
+        <div class="col-md-4">
         <h4 style="color: #528eff;">{{ product.name }}</h4>
             <i>{{ product.description }}</i> <br>
             <br>
@@ -17,7 +17,8 @@
         <div class="col-md-2">
             Prix : {{ product.price }} €
         </div>
-        <div class="col-md-1">
+        <div class="col-md-2">
+            <a  class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id': product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
             <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
         </div>
 

@@ -1,0 +1,34 @@
+{% extends "MHStoreBundle::layout.html.twig" %}
+
+
+{% block bundle_body %}
+
+    <h3> Edition d'un produit </h3>
+
+    <hr>
+
+    <div class="card">
+        <div class="card-body">
+            {{ form_start(form) }}
+
+            {{ form_row(form.price) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.description) }}
+            <div class="row">
+                <div class="col-md-6">
+                    {{ form_row(form.image) }}
+                </div>
+                <div class="col-md-6">
+                    <img
+                            src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.id ~ '.' ~ product.image.url) }}"
+                            alt="{{ product.image.alt }}"  height="150px" width="150px"
+                    />
+                </div>
+
+            </div>
+
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

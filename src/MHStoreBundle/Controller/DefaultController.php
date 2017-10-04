@@ -43,6 +43,38 @@ class DefaultController extends Controller
         ));
     }
 
+    public function editAction(Request $request, $id)
+    {
+        $user = $this->getUser();
+        $product = $this
+            ->getDoctrine()
+            ->getRepository('MHStoreBundle:Product')
+            ->find($id);
+
+        $form = $this
+            ->get('form.factory')
+            ->create(ProductType::class, $product);
+
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $product->setSeller($user);
+            $em->persist($product);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Produit modifié');
+
+            return $this->redirectToRoute('mh_store_view', array(
+                'id' => $product->getId()
+            ));
+        }
+
+        return $this->render('MHStoreBundle:Default:edit.html.twig', array(
+            'form' => $form->createView(),
+            'product' => $product
+        ));
+    }
+
+
     public function buyAction($id, Request $request)
     {
         $user = $this->getUser();
@@ -55,6 +87,14 @@ class DefaultController extends Controller
 
         if (NULL == $product){
             throw new NotFoundHttpException("Le Produit ".$id." n'existe pas");
+        }
+
+        if ($product->getId() == $user->getId()){
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter un produit que l\' on a mis en vente');
+            return $this->redirectToRoute('mh_store_view', array(
+                'id' => $product->getId()
+            ));
+
         }
 
         $price = $product->getPrice();

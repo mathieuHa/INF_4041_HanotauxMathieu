@@ -12,6 +12,12 @@ mh_store_view:
     requirements:
             id: '\d+'
 
+mh_store_edit:
+    path:   /edit/{id}
+    defaults:  { _controller: MHStoreBundle:Default:edit }
+    requirements:
+            id: '\d+'
+
 mh_store_buy:
     path:   /buy/{id}
     defaults:  { _controller: MHStoreBundle:Default:buy }

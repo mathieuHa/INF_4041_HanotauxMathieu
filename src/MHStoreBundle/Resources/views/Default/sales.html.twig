@@ -35,15 +35,18 @@
                 </div>
 
                 <div class="col-md-2">
-                    Prix : {{ product.price }} €
+                        Prix : {{ product.price }} €
                 </div>
                 <div class="col-md-2">
                     <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
-                {% if product.sold %}
-                    <button  class="btn btn-warning btn-sm">sold</button>
-                {% else %}
-                    <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                {% endif %}
+                    {% if product.sold %}
+                        <button  class="btn btn-warning btn-sm">sold</button>
+                    {% else %}
+                        {% if product.seller.id == app.user.id %}
+                            <a class="btn btn-warning" href="{{ path('mh_store_edit', {'id' : product.id}) }}">modifier</a>
+                            <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                        {% else %}
+                    {% endif %}
                 </div>
 
             </div>
