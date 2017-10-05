@@ -8,12 +8,13 @@
     <hr>
 
     <div class="card">
-        <div class="card-body">
+
             <br>
             {% if products is empty %}
                 Il n'y a aucun produit en vente actuellement, revenez plus tard.
             {% else %}
                 {% for product in products %}
+                    <div class="card-body">
                     <div class="row">
                         {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
                     </div>
@@ -23,6 +24,7 @@
 
                     {% endif %}
                 {% endfor %}
+                </div>
             {% endif %}
 
         </div>

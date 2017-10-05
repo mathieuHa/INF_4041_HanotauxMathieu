@@ -12,10 +12,9 @@
         <br>
         {% for product in products if products is not empty %}
             <div class="row">
-
                 <div class="col-md-4">
                         <img
-                                src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.id ~ '.' ~ product.image.url) }}"
+                                src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.url) }}"
                                 alt="{{ product.image.alt }}" height="150px"
                         />
                     </div>
@@ -27,7 +26,6 @@
                             Acheté le {{ product.soldDate | date("m/d/Y à H:m:s")}}
                         </small>
                     </div>
-
                     <div class="col-md-2">
                         Prix : {{ product.price }} €
                     </div>

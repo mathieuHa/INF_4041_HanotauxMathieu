@@ -55,7 +55,7 @@ class Image
         // On vérifie si on avait déjà un fichier pour cette entité
         if (null !== $this->url) {
             // On sauvegarde l'extension du fichier pour le supprimer plus tard
-            $this->tempFilename = $this->url;
+            $this->tempFilename = uniqid();
 
             // On réinitialise les valeurs des attributs url et alt
             $this->url = null;
@@ -76,7 +76,7 @@ class Image
 
         // Le nom du fichier est son id, on doit juste stocker également son extension
         // Pour faire propre, on devrait renommer cet attribut en « extension », plutôt que « url »
-        $this->url = $this->file->guessExtension();
+        $this->url = uniqid("image_",true).'.'.$this->file->guessExtension();
 
         // Et on génère l'attribut alt de la balise <img>, à la valeur du nom du fichier sur le PC de l'internaute
         $this->alt = $this->file->getClientOriginalName();
@@ -95,7 +95,7 @@ class Image
 
         // Si on avait un ancien fichier, on le supprime
         if (null !== $this->tempFilename) {
-            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.'.$this->tempFilename;
+            $oldFile = $this->getUploadRootDir().'/'.$this->tempFilename;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
@@ -104,7 +104,7 @@ class Image
         // On déplace le fichier envoyé dans le répertoire de notre choix
         $this->file->move(
             $this->getUploadRootDir(), // Le répertoire de destination
-            $this->getId().'.'.$this->url   // Le nom du fichier à créer, ici « id.extension »
+            $this->url   // Le nom du fichier à créer, ici « id.extension »
         );
     }
 
@@ -114,7 +114,7 @@ class Image
     public function preRemoveUpload()
     {
         // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
-        $this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->url;
+        $this->tempFilename = $this->getUploadRootDir().'/'.$this->url;
     }
 
     /**

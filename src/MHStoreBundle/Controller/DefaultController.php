@@ -3,6 +3,7 @@
 namespace MHStoreBundle\Controller;
 
 use MHStoreBundle\Entity\Credit;
+use MHStoreBundle\Entity\Image;
 use MHStoreBundle\Entity\Product;
 use MHStoreBundle\Form\CreditType;
 use MHStoreBundle\Form\ProductType;
@@ -26,6 +27,13 @@ class DefaultController extends Controller
             ->create(ProductType::class, $product);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            if(NULL == $product->getImage()){
+                $image = new Image();
+                $image->setAlt("unknown");
+                $image->setUrl("unknown.jpg");
+                $product->setImage($image);
+            }
+
             $em = $this->getDoctrine()->getManager();
             $product->setSeller($user);
             $em->persist($product);

@@ -9,13 +9,12 @@
 
     <div class="card">
     <div class="card-body">
-
+        <br>
         {% for product in products if products is not empty %}
             <div class="row">
-
                 <div class="col-md-4">
                     <img
-                            src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.id ~ '.' ~ product.image.url) }}"
+                            src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.url) }}"
                             alt="{{ product.image.alt }}" height="150px"
                     />
                 </div>
@@ -33,7 +32,6 @@
                         </small>
                     {% endif %}
                 </div>
-
                 <div class="col-md-2">
                         Prix : {{ product.price }} €
                 </div>
@@ -45,10 +43,9 @@
                         {% if product.seller.id == app.user.id %}
                             <a class="btn btn-warning" href="{{ path('mh_store_edit', {'id' : product.id}) }}">modifier</a>
                             <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        {% else %}
+                        {% endif %}
                     {% endif %}
                 </div>
-
             </div>
             <br>
             <hr>
