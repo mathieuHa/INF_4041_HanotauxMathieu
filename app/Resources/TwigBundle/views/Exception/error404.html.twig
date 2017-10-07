@@ -1,0 +1,13 @@
+{% extends "MHStoreBundle::layout.html.twig" %}
+
+{% block bundle_body %}
+    <h2>Hey there is nothing here : error {{ status_code }} {{ status_text }}</h2>
+
+    <hr>
+    <br>
+    <br>
+    <div class="alert alert-danger">
+        <strong>It seems that you try to get to a page that doesn't exist ! Come back <a class="alert-link" href="{{ path('mh_store_home') }}">here</a> please </strong>
+    </div>
+
+{% endblock %}

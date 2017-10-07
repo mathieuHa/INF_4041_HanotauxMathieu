@@ -61,6 +61,11 @@ class DefaultController extends Controller
             return $this->redirectToRoute('mh_store_sales');
         }
 
+        if ($product->getSold()){
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas modifier un produit que l\'on a déjà vendu ! ');
+            return $this->redirectToRoute('mh_store_sales');
+        }
+
         $form = $this
             ->get('form.factory')
             ->create(ProductType::class, $product);
@@ -91,10 +96,15 @@ class DefaultController extends Controller
         $credit = $user->getCredit();
 
         if ($product->getSeller() == $user){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter un produit qui nous appartient');
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter un produit qui nous appartient !');
             return $this->redirectToRoute('mh_store_view', array(
                 'id' => $product->getId()
             ));
+        }
+
+        if ($product->getSold()){
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter déjà vendu ! ');
+            return $this->redirectToRoute('mh_store_sales');
         }
 
         $price = $product->getPrice();
@@ -211,6 +221,11 @@ class DefaultController extends Controller
 
         if ($product->getSeller() != $user){
             $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas supprimer un produit qui ne nous appartient pas ! ');
+            return $this->redirectToRoute('mh_store_sales');
+        }
+
+        if ($product->getSold()){
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas supprimer un produit déjà vendu ! ');
             return $this->redirectToRoute('mh_store_sales');
         }
 
