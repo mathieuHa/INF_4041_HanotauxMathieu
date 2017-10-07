@@ -16,7 +16,19 @@
         </div>
         <div class="col-md-4">
             <h4 style="color: #528eff;">{{ product.name }}</h4>
-            <i>{{ product.description }}</i>
+            <i>{{ product.description }}</i><br>
+            <br>
+            {% if product.sold %}
+                {% if product.seller.id == app.user.id %}
+                    <small class="text-muted">
+                        Vendu le {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                    </small>
+                {% else %}
+                    <small class="text-muted">
+                        Acheté le {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                    </small>
+                {% endif %}
+            {% endif %}
         </div>
 
         <div class="col-md-2">
@@ -25,17 +37,15 @@
 
         <div class="col-md-2">
             {% if product.seller.id == app.user.id %}
-                <a class="btn  btn-warning" href="{{ path('mh_store_edit', {'id' : product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
                 {% if not product.sold %}
+                    <a class="btn  btn-warning" href="{{ path('mh_store_edit', {'id' : product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
                     <a class="btn btn-danger" href="{{ path('mh_store_delete', {'id' : product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                {% else %}
+                    <a class="btn btn-warning btn-sm">vendu</a>
                 {% endif %}
             {% else %}
                 {% if not product.sold %}
                         <a class="btn btn-success" href="{{ path('mh_store_buy', {'id' : product.id}) }}"> acheter</a>
-                {% else %}
-                    <small class="text-muted">
-                        Acheté le {{ product.soldDate | date("m/d/Y à H:m:s")}}
-                    </small>
                 {% endif %}
             {% endif %}
         </div>

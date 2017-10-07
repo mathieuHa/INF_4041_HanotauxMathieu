@@ -38,7 +38,7 @@
                 <div class="col-md-2">
                     <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
                     {% if product.sold %}
-                        <button  class="btn btn-warning btn-sm">sold</button>
+                        <button  class="btn btn-warning btn-sm">vendu</button>
                     {% else %}
                         <a class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id' : product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
                         <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
