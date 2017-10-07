@@ -18,7 +18,9 @@
             Prix : {{ product.price }} €
         </div>
         <div class="col-md-2">
-            <a  class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id': product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
             <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+            {% if app.user.id == product.seller.id %}
+                <a  class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id': product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+            {% endif %}
         </div>
 

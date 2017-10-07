@@ -6,22 +6,26 @@
     <h3> Achat du produit </h3>
 
     <hr>
-    <div class="row">
-        {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
-    </div>
-    <br>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                {% include('MHStoreBundle:Template:list-annonce.html.twig') %}
+                <div class="col-md-6">
+                    <a href="{{ path('mh_store_view', {'id': product.id}) }}" class="btn btn-default">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        Retour au produit
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <form action="{{ path('mh_store_buy', {'id': product.id}) }}" method="post">
 
-    <div class="row">
-        <form action="{{ path('mh_store_buy', {'id': product.id}) }}" method="post">
-            <a href="{{ path('mh_store_view', {'id': product.id}) }}" class="btn btn-default">
-                <i class="glyphicon glyphicon-chevron-left"></i>
-                Retour au produit
-            </a>
+                        <strong>Voulez-vous vraiment acheter ce produit ? &nbsp;</strong> <input type="submit" value="Acheter" class="btn btn-success" />
 
-            <input type="submit" value="Acheter" class="btn btn-success" />
-
-            {{ form_rest(form) }}
-        </form>
+                        {{ form_rest(form) }}
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
 

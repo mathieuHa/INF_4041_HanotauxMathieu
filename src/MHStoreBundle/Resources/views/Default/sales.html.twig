@@ -10,7 +10,7 @@
     <div class="card">
     <div class="card-body">
         <br>
-        {% for product in products if products is not empty %}
+        {% for product in products %}
             <div class="row">
                 <div class="col-md-4">
                     <img
@@ -40,17 +40,16 @@
                     {% if product.sold %}
                         <button  class="btn btn-warning btn-sm">sold</button>
                     {% else %}
-                        {% if product.seller.id == app.user.id %}
-                            <a class="btn btn-warning" href="{{ path('mh_store_edit', {'id' : product.id}) }}">modifier</a>
-                            <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                        {% endif %}
+                        <a class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id' : product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                     {% endif %}
                 </div>
             </div>
             <br>
-            <hr>
-            <br>
-
+            {% if not loop.last %}
+                <hr>
+                <br>
+            {% endif %}
         {% endfor %}
 
 

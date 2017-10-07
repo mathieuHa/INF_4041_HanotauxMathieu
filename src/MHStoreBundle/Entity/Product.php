@@ -60,10 +60,6 @@ class Product
      */
     private $soldDate;
 
-
-
-
-
     /**
      * @var string
      *
@@ -78,6 +74,10 @@ class Product
      */
     private $description;
 
+    public function __toString()
+    {
+        return $this->getName();
+    }
 
     public function __construct()
     {

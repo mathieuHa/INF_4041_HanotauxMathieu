@@ -17,8 +17,6 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->where('p.sold = :state')
             ->setParameter('state', false);
         ;
-
-        // On retourne ces résultats
         return $qb->getQuery()->getResult();
     }
 }

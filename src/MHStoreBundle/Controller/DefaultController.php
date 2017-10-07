@@ -5,6 +5,7 @@ namespace MHStoreBundle\Controller;
 use MHStoreBundle\Entity\Credit;
 use MHStoreBundle\Entity\Image;
 use MHStoreBundle\Entity\Product;
+use MHStoreBundle\Entity\User;
 use MHStoreBundle\Form\CreditType;
 use MHStoreBundle\Form\ProductType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,13 +52,14 @@ class DefaultController extends Controller
         ));
     }
 
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, Product $product)
     {
         $user = $this->getUser();
-        $product = $this
-            ->getDoctrine()
-            ->getRepository('MHStoreBundle:Product')
-            ->find($id);
+
+        if ($product->getSeller() != $user){
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas modifier un produit qui ne nous appartient pas ! ');
+            return $this->redirectToRoute('mh_store_sales');
+        }
 
         $form = $this
             ->get('form.factory')
@@ -83,26 +85,16 @@ class DefaultController extends Controller
     }
 
 
-    public function buyAction($id, Request $request)
+    public function buyAction(Request $request, Product $product)
     {
         $user = $this->getUser();
         $credit = $user->getCredit();
 
-        $product = $this
-            ->getDoctrine()
-            ->getRepository('MHStoreBundle:Product')
-            ->find($id);
-
-        if (NULL == $product){
-            throw new NotFoundHttpException("Le Produit ".$id." n'existe pas");
-        }
-
-        if ($product->getId() == $user->getId()){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter un produit que l\' on a mis en vente');
+        if ($product->getSeller() == $user){
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter un produit qui nous appartient');
             return $this->redirectToRoute('mh_store_view', array(
                 'id' => $product->getId()
             ));
-
         }
 
         $price = $product->getPrice();
@@ -141,7 +133,7 @@ class DefaultController extends Controller
 
     }
 
-    public function rechargeAction($id, Request $request)
+    public function rechargeAction(Request $request)
     {
         $user = $this->getUser();
         $credit = new Credit();
@@ -155,9 +147,7 @@ class DefaultController extends Controller
 
             $request->getSession()->getFlashBag()->add('notice', $credit->getNumber().' credit(s) acheté');
 
-            return $this->redirectToRoute('mh_store_home', array(
-                'id' => $id
-            ));
+            return $this->redirectToRoute('mh_store_home');
         }
 
         return $this->render('MHStoreBundle:Default:recharge.html.twig', array(
@@ -166,17 +156,8 @@ class DefaultController extends Controller
     }
 
 
-    public function viewAction($id)
+    public function viewAction(Product $product)
     {
-        $product = $this
-            ->getDoctrine()
-            ->getRepository('MHStoreBundle:Product')
-            ->find($id);
-
-        if (NULL == $product){
-            throw new NotFoundHttpException("Le Produit ".$id." n'existe pas");
-        }
-
         return $this->render('MHStoreBundle:Default:view.html.twig', array(
             'product' => $product
         ));
@@ -186,7 +167,7 @@ class DefaultController extends Controller
     {
         $products = $this
             ->getDoctrine()
-            ->getRepository('MHStoreBundle:Product')
+            ->getRepository(Product::class)
             ->findAllActiveProduct();
 
         return $this->render('MHStoreBundle:Default:list.html.twig', array(
@@ -224,24 +205,33 @@ class DefaultController extends Controller
         ));
     }
 
-    public function deleteAction($id)
+    public function deleteAction(Request $request, Product $product)
     {
-        $product = $this
-            ->getDoctrine()
-            ->getRepository('MHStoreBundle:Product')
-            ->find($id);
+        $user = $this->getUser();
 
-        if (NULL == $product){
-            throw new NotFoundHttpException("Le Produit ".$id." n'existe pas");
+        if ($product->getSeller() != $user){
+            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas supprimer un produit qui ne nous appartient pas ! ');
+            return $this->redirectToRoute('mh_store_sales');
         }
 
-        $em = $this
-            ->getDoctrine()
-            ->getManager();
+        $form = $this->get('form.factory')->create();
 
-        $em->remove($product);
-        $em->flush();
+        if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
+            $em = $this
+                ->getDoctrine()
+                ->getManager();
 
-        return $this->render('MHStoreBundle:Default:index.html.twig');
+            $em->remove($product);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Produit supprimé');
+
+            return $this->redirectToRoute('mh_store_sales');
+        }
+
+        return $this->render('MHStoreBundle:Default:delete.html.twig', array(
+            'form' => $form->createView(),
+            'product' => $product
+        ));
     }
 }

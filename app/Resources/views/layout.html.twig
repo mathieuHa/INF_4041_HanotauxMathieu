@@ -31,9 +31,9 @@
             <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
             {% if app.user %}
                 <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_purchases', {'id':app.user.id}) }}">Mes Achats </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_sales', {'id':app.user.id}) }}">Mes ventes </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_buy_credit', {'id':app.user.id}) }}">Recharger le compte </a> </li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_purchases') }}">Mes Achats </a> </li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_sales') }}">Mes ventes </a> </li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_buy_credit') }}">Recharger le compte </a> </li>
             {% endif %}
         </ul>
         <form class="form-inline mt-2 mt-md-0">

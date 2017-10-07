@@ -25,22 +25,16 @@ mh_store_buy:
             id: '\d+'
 
 mh_store_buy_credit:
-    path:   /recharge/{id}
+    path:   /recharge
     defaults:  { _controller: MHStoreBundle:Default:recharge }
-    requirements:
-            id: '\d+'
 
 mh_store_sales:
-    path:   /sales/{id}
+    path:   /sales
     defaults:  { _controller: MHStoreBundle:Default:sales }
-    requirements:
-            id: '\d+'
 
 mh_store_purchases:
-    path:   /purchases/{id}
+    path:   /purchases
     defaults:  { _controller: MHStoreBundle:Default:purchases }
-    requirements:
-            id: '\d+'
 
 mh_store_add:
     path:   /add

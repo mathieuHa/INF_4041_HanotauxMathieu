@@ -44,6 +44,11 @@ class Image
 
     private $tempFilename;
 
+    public function __toString()
+    {
+        return $this->getAlt();
+    }
+
     public function getFile(){
         return $this->file;
     }
