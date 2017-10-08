@@ -19,4 +19,15 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         ;
         return $qb->getQuery()->getResult();
     }
+
+    public function searchProduct($name)
+    {
+        $qb = $this
+            ->createQueryBuilder('p')
+            ->where('p.name LIKE :name')
+            ->orWhere('p.description LIKE :name')
+            ->setParameter('name', '%'.$name.'%');
+
+        return $qb->getQuery()->getResult();
+    }
 }

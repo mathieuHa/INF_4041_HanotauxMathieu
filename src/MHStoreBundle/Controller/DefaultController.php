@@ -185,6 +185,22 @@ class DefaultController extends Controller
         ));
     }
 
+    public function searchAction($tag)
+    {
+
+        $products = $this
+            ->getDoctrine()
+            ->getRepository(Product::class)
+            ->searchProduct($tag);
+
+        return $this->render('MHStoreBundle:Default:list.html.twig', array(
+            'products' => $products
+        ));
+    }
+
+
+
+
     public function salesAction()
     {
         $user = $this->getUser();

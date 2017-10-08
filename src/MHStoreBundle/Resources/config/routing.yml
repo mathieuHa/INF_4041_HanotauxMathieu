@@ -6,6 +6,10 @@ mh_store_list:
     path:   /list
     defaults:  { _controller: MHStoreBundle:Default:list }
 
+mh_store_search:
+    path:   /search/{tag}
+    defaults:  { _controller: MHStoreBundle:Default:search }
+
 mh_store_view:
     path:   /view/{id}
     defaults:  { _controller: MHStoreBundle:Default:view }
