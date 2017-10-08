@@ -1,0 +1,37 @@
+{% for product in products %}
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4">
+                <img
+                        src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.url) }}"
+                        alt="{{ product.image.alt }}" height="150px"
+                />
+            </div>
+            <div class="col-md-4">
+                <h4 style="color: #528eff;">{{ product.name }}</h4>
+                <i>{{ product.description }}</i> <br>
+                <br>
+                <small class="text-muted">
+                    Mis en ligne le {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                </small>
+            </div>
+
+            <div class="col-md-2">
+                Prix : {{ product.price }} €
+            </div>
+            <div class="col-md-2">
+                <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
+                {% if app.user and app.user.id == product.seller.id %}
+                    <a  class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id': product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                {% else %}
+                    <a  class="btn btn-success btn-sm" href="{{ path('mh_store_buy', {'id': product.id}) }}"><i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
+                {% endif %}
+            </div>
+        </div>
+        <br>
+        {% if not loop.last %}
+            <hr>
+            <br>
+        {% endif %}
+    </div>
+{% endfor %}

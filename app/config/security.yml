@@ -34,5 +34,6 @@ security:
          - { path: /home, role: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/view, role: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: /list, role: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/search, role: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/, role: ROLE_USER }
 

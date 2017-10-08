@@ -26,7 +26,9 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
             ->createQueryBuilder('p')
             ->where('p.name LIKE :name')
             ->orWhere('p.description LIKE :name')
-            ->setParameter('name', '%'.$name.'%');
+            ->andWhere('p.sold = :val')
+            ->setParameter('name', '%'.$name.'%')
+            ->setParameter('val', false);
 
         return $qb->getQuery()->getResult();
     }

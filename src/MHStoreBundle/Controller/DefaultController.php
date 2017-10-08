@@ -185,16 +185,21 @@ class DefaultController extends Controller
         ));
     }
 
-    public function searchAction($tag)
+    public function searchAction(Request $request)
     {
+        $tag = $request->get('tag');
+
+        if (NULL == $tag)
+            return $this->redirectToRoute('mh_store_list'); // recherche nulle = list complète
 
         $products = $this
             ->getDoctrine()
             ->getRepository(Product::class)
             ->searchProduct($tag);
 
-        return $this->render('MHStoreBundle:Default:list.html.twig', array(
-            'products' => $products
+        return $this->render('MHStoreBundle:Default:search.html.twig', array(
+            'products' => $products,
+            'tag' => $tag
         ));
     }
 

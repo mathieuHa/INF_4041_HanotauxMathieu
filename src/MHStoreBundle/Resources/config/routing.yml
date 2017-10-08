@@ -7,8 +7,10 @@ mh_store_list:
     defaults:  { _controller: MHStoreBundle:Default:list }
 
 mh_store_search:
-    path:   /search/{tag}
+    path:   /search
     defaults:  { _controller: MHStoreBundle:Default:search }
+    options:
+            expose: true
 
 mh_store_view:
     path:   /view/{id}

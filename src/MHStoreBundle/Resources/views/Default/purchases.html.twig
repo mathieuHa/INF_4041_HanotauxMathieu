@@ -10,7 +10,7 @@
     <div class="card">
     <div class="card-body">
         <br>
-        {% for product in products if products is not empty %}
+        {% for product in products %}
             <div class="row">
                 <div class="col-md-4">
                         <img
@@ -34,8 +34,10 @@
                     </div>
             </div>
             <br>
-            <hr>
-            <br>
+            {% if not loop.last %}
+                <hr>
+                <br>
+            {% endif %}
         {% endfor %}
     </div>
     </div>

@@ -1,22 +1,25 @@
+
 {% extends "MHStoreBundle::layout.html.twig" %}
 
 
 {% block bundle_body %}
 
-    <h3> Liste des produits </h3>
+    <h3> Recherche de produit pour : '{{ tag }}'</h3>
 
     <hr>
 
     <div class="card">
+
             <br>
             {% if products is empty %}
                 <div class="alert alert-info">
-                    Il n'y a aucun produit en vente actuellement, revenez plus tard.
+                    Il n'y a aucun produit en vente actuellement pour votre recherche, <a class="alert-link" href="{{ path('mh_store_list') }}">retour à la liste des produits</a> .
                 </div>
 
             {% else %}
                 {% include('MHStoreBundle:Template:list-product.html.twig') %}
             {% endif %}
+
     </div>
 
 
