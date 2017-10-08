@@ -22,15 +22,13 @@
                     <h4 style="color: #528eff;">{{ product.name }}</h4>
                     <i>{{ product.description }}</i> <br>
                     <br>
-                    {% if product.sold %}
-                        <small class="text-muted">
+                    <div class="text-muted">
+                        {% if product.sold %}
                             Vendu le {{ product.soldDate | date("m/d/Y à H:m:s")}}
-                        </small>
-                    {% else %}
-                        <small class="text-muted">
-                            Acheté le {{ product.setupDate | date("m/d/Y à H:m:s")}}
-                        </small>
-                    {% endif %}
+                        {% else %}
+                                Mis en vente le {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                        {% endif %}
+                    </div>
                 </div>
                 <div class="col-md-2">
                         Prix : {{ product.price }} €

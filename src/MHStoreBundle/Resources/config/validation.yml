@@ -1,0 +1,28 @@
+MHStoreBundle\Entity\Product:
+    properties:
+        price:
+            - NotBlank: ~
+            - Type: Integer
+            - Range:
+                min: 1
+                max: 100000
+                minMessage: Minimum 1 euros
+                maxMessage: Maximum 100000 euros
+        name:
+            - NotBlank: ~
+            - Type: String
+            - Length:
+        description:
+            - NotBlank: ~
+            - Type: String
+
+MHStoreBundle\Entity\Credit:
+    properties:
+        number:
+            - NotBlank: ~
+            - Type: Integer
+            - Range:
+                min: 1
+                max: 100000
+                minMessage: Minimum 1 euros
+                maxMessage: Maximum 100000 euros
