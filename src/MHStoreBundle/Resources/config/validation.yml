@@ -11,7 +11,6 @@ MHStoreBundle\Entity\Product:
         name:
             - NotBlank: ~
             - Type: String
-            - Length:
         description:
             - NotBlank: ~
             - Type: String
