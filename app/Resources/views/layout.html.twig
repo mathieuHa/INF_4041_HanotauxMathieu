@@ -1,11 +1,27 @@
 <!Doctype html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
     <title>{% block title %}Le Bon Deal{% endblock %}</title>
+    <meta name="description" content="{% block seo %}Site web de vente d'articles entre particuliers.{% endblock %}">
+    <meta name="author" content="Le Bon Deal">
+    <meta name="Identifier-URL" content="https://inf4041.hanotaux.fr">
+    <meta name="Keywords" content="Particulier, vente, occasion">
+    <meta name="Publisher" content="Hanotaux Mathieu">
+    <meta http-equiv="Content-Language" content="fr">
+
+    <meta property="og:locale" content="fr_FR"/>
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://mathieu.hanotaux.fr"/>
+    <meta property="og:site_name" content="Le Bon Deal"/>
+    <meta property="og:description" content="Site web de vente d'articles entre particuliers." />
+    <meta property="og:image" content="{{ asset('bundles/mhstore/assets/img/le-bon-deal.jpg') }}"/>
+    <meta property="og:image:type" content="image/jpg" />
+    <meta property="og:image:width" content="422"/>
+    <meta property="og:image:height" content="600" />
 
     {% block stylesheets %}
 
@@ -25,7 +41,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
             <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_home') }}">Accueil </a> </li>
 
             <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
@@ -76,9 +91,8 @@
     <hr>
 
     <footer>
-        <p>Hanotaux Mathieu - Webmaster du Groupe ESIEA 2017- <a href="mailto:hanotaux@et.esiea.fr">hanotaux@et.esiea.fr</a></p>
+        <p>Hanotaux Mathieu - Webmaster du Groupe ESIEA 2017 -</p>
     </footer>
-</div>
 
 {% block javascript %}
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
