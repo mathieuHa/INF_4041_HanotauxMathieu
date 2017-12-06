@@ -54,6 +54,9 @@ class DefaultController extends Controller
 
     public function editAction(Request $request, Product $product)
     {
+        if (null == $product) {
+            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+        }
         $user = $this->getUser();
 
         if ($product->getSeller() != $user){

@@ -1,13 +1,13 @@
-{% extends "MHNewsletterBundle::layout.html.twig" %}
+{% extends "MHStoreBundle::layout.html.twig" %}
 
 {% block bundle_body %}
-    <h2>Hey What is going on here : error {{ status_code }} {{ status_text }}</h2>
+    <h2>Error {{ status_code }} {{ status_text }}</h2>
 
     <hr>
     <br>
     <br>
     <div class="alert alert-danger">
-        <strong>This will be fixed pretty soon</strong>
+        <strong>This will be fixed pretty soon, please tell me what happened <a href="https://mathieu.hanotaux.fr/contact">here</a></strong>
     </div>
 
 {% endblock %}

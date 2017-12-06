@@ -8,11 +8,11 @@
         {{ form_widget(form.username, { 'attr': {'class': 'form-control', 'placeholder': 'form.username'|trans } }) }}
         {{ form_errors(form.username) }}
         <br>
-        {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'form.password'|trans } }) }}
-        {{ form_errors(form.plainPassword.first) }}
-        <br>
         {{ form_widget(form.plainPassword.second, { 'attr': {'class': 'form-control', 'placeholder': 'form.password_confirmation'|trans } }) }}
         {{ form_errors(form.plainPassword.second) }}
+        <br>
+        {{ form_widget(form.plainPassword.first, { 'attr': {'class': 'form-control', 'placeholder': 'form.password'|trans } }) }}
+        {{ form_errors(form.plainPassword.first) }}
         <br>
         {{ form_rest(form) }}
 

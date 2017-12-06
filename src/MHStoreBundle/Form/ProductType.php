@@ -18,8 +18,8 @@ class ProductType extends AbstractType
             ->add('price')
             ->add('name')
             ->add('description')
-            ->add('image', ImageType::class,[  'required' => false])
-            ->add('save', SubmitType::class);
+            ->add('image', ImageType::class,['required' => false])
+            ->add('Ajouter', SubmitType::class);
     }
     
     /**

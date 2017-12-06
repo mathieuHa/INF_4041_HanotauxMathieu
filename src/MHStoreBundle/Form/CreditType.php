@@ -14,7 +14,7 @@ class CreditType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('number')->add('save', SubmitType::class);
+        $builder->add('number')->add('Recharger', SubmitType::class);
     }
     
     /**

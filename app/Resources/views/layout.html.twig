@@ -35,20 +35,52 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-dark  bg-dark">
-    <a class="navbar-brand" href="{{ path('mh_store_home') }}">Le Bon Deal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_home') }}">Accueil </a> </li>
-
-            <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
+            {% if 'mh_store_home' == app.request.get('_route') %}
+                <li class="nav-item active"><a class="nav-link" href="{{ path('mh_store_home') }}">Accueil </a> </li>
+            {% else %}
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_home') }}">Accueil </a> </li>
+            {% endif %}
+            {% if 'mh_store_list' == app.request.get('_route') %}
+                <li class="nav-item active"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
+            {% else %}
+                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_list') }}">Liste </a> </li>
+            {% endif %}
             {% if app.user %}
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_purchases') }}">Mes Achats </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_sales') }}">Mes ventes </a> </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_buy_credit') }}">Recharger le compte </a> </li>
+                {% if 'mh_store_add' == app.request.get('_route') %}
+                    <li class="nav-item active"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_add') }}">Ajouter </a> </li>
+                {% endif %}
+                {% if 'mh_store_purchases' == app.request.get('_route') %}
+                    <li class="nav-item active"><a class="nav-link" href="{{ path('mh_store_purchases') }}">Mes Achats </a> </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_purchases') }}">Mes Achats </a> </li>
+                {% endif %}
+                {% if 'mh_store_sales' == app.request.get('_route') %}
+                    <li class="nav-item active"><a class="nav-link" href="{{ path('mh_store_sales') }}">Mes ventes </a> </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_sales') }}">Mes ventes </a> </li>
+                {% endif %}
+                {% if 'mh_store_buy_credit' == app.request.get('_route') %}
+                    <li class="nav-item active"><a class="nav-link" href="{{ path('mh_store_buy_credit') }}">Recharger le compte </a> </li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('mh_store_buy_credit') }}">Recharger le compte </a> </li>
+                {% endif %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Réglages
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ path('mh_store_buy_credit') }}"> Credits : {{ app.user.credit }}</a>
+                        <a class="dropdown-item" href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+                        <a class="dropdown-item" href="{{ path('fos_user_change_password') }}">Changer mot de passe</a>
+                    </div>
+                </li>
             {% endif %}
         </ul>
         <form class="form-inline mt-2 mt-md-0">
@@ -58,8 +90,8 @@
     </div>
 </nav>
 <div class="bg"></div>
-<div id="header" class="jumbotron jumbotron-fluid">
-    <div class="container-fluid">
+<div id="header" class="jumbotron">
+    <div class="container">
         <h1 class="display-3">
             <a href="{{ path('mh_store_home') }}">Le Bon Deal</a>
         </h1>
@@ -68,18 +100,8 @@
         </p>
     </div>
 </div>
-<div class="alert alert-info"> {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-    Connecté en tant que {{ app.user.username }}
-    - Credits : {{ app.user.credit }}
-    <div class="float-right alert-link"><a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-        {% else %}
-            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-        {% endif %}&nbsp;
-    </div>
-</div>
-
     <br>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div id="content" class="col-md-12 col-lg-12">
                 {% block body %}
@@ -91,7 +113,7 @@
     <hr>
 
     <footer>
-        <p>Hanotaux Mathieu - Webmaster du Groupe ESIEA 2017 -</p>
+        <p class="text-center"><a href="https://mathieu.hanotaux.fr"> Hanotaux Mathieu </a>- Webmaster du Groupe ESIEA 2015-2017</p>
     </footer>
 
 {% block javascript %}
