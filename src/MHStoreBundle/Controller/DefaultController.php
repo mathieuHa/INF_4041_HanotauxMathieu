@@ -7,7 +7,8 @@ use MHStoreBundle\Entity\Image;
 use MHStoreBundle\Entity\Product;
 use MHStoreBundle\Entity\User;
 use MHStoreBundle\Form\CreditType;
-use MHStoreBundle\Form\ProductType;
+use MHStoreBundle\Form\ProductAddType;
+use MHStoreBundle\Form\ProductEditType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,16 +17,23 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('MHStoreBundle:Default:index.html.twig');
+        $products = $this
+            ->getDoctrine()
+            ->getRepository(Product::class)
+            ->findLastActiveProduct();
+
+        return $this->render('MHStoreBundle:Default:index.html.twig', array(
+            'products' => $products
+        ));
     }
 
     public function addAction(Request $request)
     {
-        $user = $this->getUser();
+        $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
         $product = new Product();
         $form = $this
             ->get('form.factory')
-            ->create(ProductType::class, $product);
+            ->create(ProductAddType::class, $product);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             if(NULL == $product->getImage()){
@@ -52,12 +60,13 @@ class DefaultController extends Controller
         ));
     }
 
-    public function editAction(Request $request, Product $product)
+    public function editAction(Request $request, Product $product = null)
     {
         if (null == $product) {
             $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            return $this->redirectToRoute('mh_store_list');
         }
-        $user = $this->getUser();
+        $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
 
         if ($product->getSeller() != $user){
             $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas modifier un produit qui ne nous appartient pas ! ');
@@ -71,7 +80,7 @@ class DefaultController extends Controller
 
         $form = $this
             ->get('form.factory')
-            ->create(ProductType::class, $product);
+            ->create(ProductEditType::class, $product);
 
         if ($request->isMethod('POST') && $form->handleRequest($request)->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -93,9 +102,13 @@ class DefaultController extends Controller
     }
 
 
-    public function buyAction(Request $request, Product $product)
+    public function buyAction(Request $request, Product $product = null)
     {
-        $user = $this->getUser();
+        if (null == $product) {
+            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            return $this->redirectToRoute('mh_store_list');
+        }
+        $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
         $credit = $user->getCredit();
 
         if ($product->getSeller() == $user){
@@ -148,7 +161,7 @@ class DefaultController extends Controller
 
     public function rechargeAction(Request $request)
     {
-        $user = $this->getUser();
+        $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
         $credit = new Credit();
 
         $form = $this->get('form.factory')->create(CreditType::class, $credit);
@@ -169,8 +182,12 @@ class DefaultController extends Controller
     }
 
 
-    public function viewAction(Product $product)
+    public function viewAction(Product $product = null, Request $request)
     {
+        if (null == $product) {
+            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            return $this->redirectToRoute('mh_store_list');
+        }
         return $this->render('MHStoreBundle:Default:view.html.twig', array(
             'product' => $product
         ));
@@ -211,7 +228,7 @@ class DefaultController extends Controller
 
     public function salesAction()
     {
-        $user = $this->getUser();
+        $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
 
         $products = $this
             ->getDoctrine()
@@ -226,7 +243,7 @@ class DefaultController extends Controller
 
     public function purchasesAction()
     {
-        $user = $this->getUser();
+        $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
 
         $products = $this
             ->getDoctrine()
@@ -239,9 +256,13 @@ class DefaultController extends Controller
         ));
     }
 
-    public function deleteAction(Request $request, Product $product)
+    public function deleteAction(Request $request, Product $product = null)
     {
-        $user = $this->getUser();
+        if (null == $product) {
+            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            return $this->redirectToRoute('mh_store_sales');
+        }
+        $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
 
         if ($product->getSeller() != $user){
             $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas supprimer un produit qui ne nous appartient pas ! ');

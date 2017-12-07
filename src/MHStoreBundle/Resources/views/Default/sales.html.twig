@@ -10,46 +10,52 @@
     <div class="card">
     <div class="card-body">
         <br>
-        {% for product in products %}
-            <div class="row">
-                <div class="col-md-4">
-                    <img
-                            src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.url) }}"
-                            alt="{{ product.image.alt }}" height="150px"
-                    />
-                </div>
-                <div class="col-md-4">
-                    <h4 style="color: #528eff;">{{ product.name }}</h4>
-                    <i>{{ product.description }}</i> <br>
-                    <br>
-                    <div class="text-muted">
+        {% if products is empty %}
+            <div class="alert alert-info">
+                Vous n'avez mis en vente encore aucun produit.
+            </div>
+
+        {% else %}
+            {% for product in products %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <img
+                                src="{{ asset(product.image.uploadDir ~ '/' ~ product.image.url) }}"
+                                alt="{{ product.image.alt }}" class="img-fluid"
+                        />
+                    </div>
+                    <div class="col-md-4">
+                        <h4>{{ product.name }}</h4>
+                        <i>{{ product.description }}</i> <br>
+                        <br>
+                        <div class="text-muted">
+                            {% if product.sold %}
+                                Vendu le {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                            {% else %}
+                                    Mis en vente le {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                            Prix : {{ product.price }} €
+                    </div>
+                    <div class="col-md-2">
+                        <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
                         {% if product.sold %}
-                            Vendu le {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                            <button  class="btn btn-warning btn-sm">vendu</button>
                         {% else %}
-                                Mis en vente le {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                            <a class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id' : product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                            <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         {% endif %}
                     </div>
                 </div>
-                <div class="col-md-2">
-                        Prix : {{ product.price }} €
-                </div>
-                <div class="col-md-2">
-                    <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>
-                    {% if product.sold %}
-                        <button  class="btn btn-warning btn-sm">vendu</button>
-                    {% else %}
-                        <a class="btn btn-warning btn-sm" href="{{ path('mh_store_edit', {'id' : product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                        <a  class="btn btn-danger btn-sm" href="{{ path('mh_store_delete', {'id': product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
-                    {% endif %}
-                </div>
-            </div>
-            <br>
-            {% if not loop.last %}
-                <hr>
                 <br>
-            {% endif %}
-        {% endfor %}
-
+                {% if not loop.last %}
+                    <hr>
+                    <br>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
 
     </div>
 </div>

@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ProductType extends AbstractType
+class ProductEditType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -18,10 +18,7 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('price', IntegerType::class)
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('image', ImageType::class,['required' => false]);
+            ->add('Editer', SubmitType::class);
     }
     
     /**
@@ -34,12 +31,17 @@ class ProductType extends AbstractType
         ));
     }
 
+    public function getParent()
+    {
+        return ProductType::class;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function getBlockPrefix()
     {
-        return 'mhstorebundle_product';
+        return 'mhstorebundle_product_edit';
     }
 
 

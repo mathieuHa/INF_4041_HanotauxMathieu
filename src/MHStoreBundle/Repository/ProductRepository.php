@@ -20,15 +20,27 @@ class ProductRepository extends \Doctrine\ORM\EntityRepository
         return $qb->getQuery()->getResult();
     }
 
-    public function searchProduct($name)
+    public function findLastActiveProduct()
     {
         $qb = $this
             ->createQueryBuilder('p')
-            ->where('p.name LIKE :name')
-            ->orWhere('p.description LIKE :name')
-            ->andWhere('p.sold = :val')
-            ->setParameter('name', '%'.$name.'%')
-            ->setParameter('val', false);
+            ->where('p.sold = :state')
+            ->orderBy('p.setupDate', 'DESC')
+            ->setMaxResults(3)
+            ->setParameter('state', false);
+        ;
+        return $qb->getQuery()->getResult();
+    }
+
+    public function searchProduct($name)
+    {
+        $qb = $this
+        ->createQueryBuilder('p')
+        ->where('p.name LIKE :name')
+        ->orWhere('p.description LIKE :name')
+        ->andWhere('p.sold = :val')
+        ->setParameter('name', '%'.$name.'%')
+        ->setParameter('val', false);
 
         return $qb->getQuery()->getResult();
     }

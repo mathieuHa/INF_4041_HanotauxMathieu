@@ -1,22 +1,33 @@
 {% extends "MHStoreBundle::layout.html.twig" %}
 
-
 {% block bundle_body %}
 
     <h3> Accueil </h3>
 
     <hr>
     <div class="row">
-        <div class="col-md-6">
-            <a href="{{ path('mh_store_list') }}" class="btn btn-lg btn-primary">Voir la liste des annonces </a>
+        <div class="col-md-8">
+            <h4>Derniers produits mis en vente</h4>
+            {% if products is empty %}
+                <div class="alert alert-info">
+                    Il n'y a aucun produit en vente actuellement, revenez plus tard.
+                </div>
+
+            {% else %}
+                {% include('MHStoreBundle:Template:list-product.html.twig') %}
+            {% endif %}
+
         </div>
         {% if app.user %}
-            <div class="col-md-6">
-                <a href="{{ path('mh_store_add') }}" class="btn btn-lg btn-success">Ajouter une annonce</a>
+            <div class="col-md-4">
+                <a href="{{ path('mh_store_add') }}" class="btn btn-success">Ajouter une annonce</a>
+
+                <a href="{{ path('mh_store_list') }}" class="btn btn-primary">Voir toute les annonces</a>
             </div>
         {% else %}
-            <div class="col-md-6">
-                <a href="{{ path('fos_user_security_login') }}" class="btn btn-lg btn-warning">Se connecter</a>
+            <div class="col-md-4">
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-light ">Se connecter</a>
+                <a href="{{ path('mh_store_list') }}" class="btn btn-primary ">Voir toute les annonces</a>
             </div>
         {% endif %}
 
