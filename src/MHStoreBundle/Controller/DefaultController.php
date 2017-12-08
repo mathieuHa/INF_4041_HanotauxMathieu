@@ -48,7 +48,7 @@ class DefaultController extends Controller
             $em->persist($product);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Produit ajouté');
+            $request->getSession()->getFlashBag()->add('notice', 'Product added');
 
             return $this->redirectToRoute('mh_store_view', array(
                 'id' => $product->getId()
@@ -63,18 +63,18 @@ class DefaultController extends Controller
     public function editAction(Request $request, Product $product = null)
     {
         if (null == $product) {
-            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            $request->getSession()->getFlashBag()->add('notice', 'This product does not exist');
             return $this->redirectToRoute('mh_store_list');
         }
         $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
 
         if ($product->getSeller() != $user){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas modifier un produit qui ne nous appartient pas ! ');
+            $request->getSession()->getFlashBag()->add('notice', 'We can not modify a product that does not belong to us!');
             return $this->redirectToRoute('mh_store_sales');
         }
 
         if ($product->getSold()){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas modifier un produit que l\'on a déjà vendu ! ');
+            $request->getSession()->getFlashBag()->add('notice', 'We can not modify a product that we have already sold!');
             return $this->redirectToRoute('mh_store_sales');
         }
 
@@ -88,7 +88,7 @@ class DefaultController extends Controller
             $em->persist($product);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', 'Produit modifié');
+            $request->getSession()->getFlashBag()->add('notice', 'Product Updated');
 
             return $this->redirectToRoute('mh_store_view', array(
                 'id' => $product->getId()
@@ -105,21 +105,21 @@ class DefaultController extends Controller
     public function buyAction(Request $request, Product $product = null)
     {
         if (null == $product) {
-            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            $request->getSession()->getFlashBag()->add('notice', 'This product does not exist');
             return $this->redirectToRoute('mh_store_list');
         }
         $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
         $credit = $user->getCredit();
 
         if ($product->getSeller() == $user){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter un produit qui nous appartient !');
+            $request->getSession()->getFlashBag()->add('notice', 'We can not buy a product that belongs to us!');
             return $this->redirectToRoute('mh_store_view', array(
                 'id' => $product->getId()
             ));
         }
 
         if ($product->getSold()){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas acheter déjà vendu ! ');
+            $request->getSession()->getFlashBag()->add('notice', 'We can not buy a product already sold! ');
             return $this->redirectToRoute('mh_store_sales');
         }
 
@@ -137,7 +137,7 @@ class DefaultController extends Controller
                 $em->persist($product);
                 $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Produit acheté');
+                $request->getSession()->getFlashBag()->add('notice', 'Purchased product');
 
                 return $this->redirectToRoute('mh_store_view', array(
                     'id' => $product->getId()
@@ -150,7 +150,7 @@ class DefaultController extends Controller
             ));
         }
         else {
-            $request->getSession()->getFlashBag()->add('notice', 'Pas assez de credits');
+            $request->getSession()->getFlashBag()->add('notice', 'Not enough credits');
             return $this->render('MHStoreBundle:Default:view.html.twig', array(
                 'product' => $product
             ));
@@ -171,7 +171,7 @@ class DefaultController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->add('notice', $credit->getNumber().' credit(s) acheté');
+            $request->getSession()->getFlashBag()->add('notice', $credit->getNumber().' credit(s) bought');
 
             return $this->redirectToRoute('mh_store_home');
         }
@@ -185,7 +185,7 @@ class DefaultController extends Controller
     public function viewAction(Product $product = null, Request $request)
     {
         if (null == $product) {
-            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            $request->getSession()->getFlashBag()->add('notice', 'This product does not exist');
             return $this->redirectToRoute('mh_store_list');
         }
         return $this->render('MHStoreBundle:Default:view.html.twig', array(
@@ -259,18 +259,18 @@ class DefaultController extends Controller
     public function deleteAction(Request $request, Product $product = null)
     {
         if (null == $product) {
-            $request->getSession()->getFlashBag()->add('notice', 'Ce produit n\'existe pas');
+            $request->getSession()->getFlashBag()->add('notice', 'This product does not exist');
             return $this->redirectToRoute('mh_store_sales');
         }
         $user = $this->getUser(); // vérification des utilisateurs connectés faite dans le security.yml
 
         if ($product->getSeller() != $user){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas supprimer un produit qui ne nous appartient pas ! ');
+            $request->getSession()->getFlashBag()->add('notice', 'We can not delete a product that does not belong to us! ');
             return $this->redirectToRoute('mh_store_sales');
         }
 
         if ($product->getSold()){
-            $request->getSession()->getFlashBag()->add('notice', 'On ne peut pas supprimer un produit déjà vendu ! ');
+            $request->getSession()->getFlashBag()->add('notice', 'We can not delete a product already sold! ');
             return $this->redirectToRoute('mh_store_sales');
         }
 
