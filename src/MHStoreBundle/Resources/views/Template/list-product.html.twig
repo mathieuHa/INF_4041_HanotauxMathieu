@@ -13,13 +13,13 @@
                 <i>{{ product.description }}</i> <br>
                 <br>
                 <small class="text-muted">
-                    Mis en ligne le {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                    Posted on {{ product.setupDate | date("m/d/Y à H:m:s")}}
                 </small>
                 <br><br>
             </div>
 
             <div class="col-sm-6 col-6 col-md-2 col-lg-2">
-                Prix : {{ product.price }} €
+                Price : {{ product.price }} €
             </div>
             <div class="col-sm-6 col-6 col-md-2 col-lg-2">
                 <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>

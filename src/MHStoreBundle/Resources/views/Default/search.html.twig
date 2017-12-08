@@ -4,7 +4,7 @@
 
 {% block bundle_body %}
 
-    <h3> Recherche de produit pour : '{{ tag }}'</h3>
+    <h3> Product search for : '{{ tag }}'</h3>
 
     <hr>
 
@@ -13,7 +13,7 @@
             <br>
             {% if products is empty %}
                 <div class="alert alert-info">
-                    Il n'y a aucun produit en vente actuellement pour votre recherche, <a class="alert-link" href="{{ path('mh_store_list') }}">retour à la liste des produits</a> .
+                    There is no product currently on sale for your search, <a class="alert-link" href="{{ path('mh_store_list') }}">back to the list of products</a> .
                 </div>
 
             {% else %}

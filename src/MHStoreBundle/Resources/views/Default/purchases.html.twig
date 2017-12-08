@@ -3,7 +3,7 @@
 
 {% block bundle_body %}
 
-    <h3> Mes achats </h3>
+    <h3> Purchases </h3>
 
     <hr>
 
@@ -12,7 +12,7 @@
         <br>
         {% if products is empty %}
             <div class="alert alert-info">
-                Vous n'avez acheté encore aucun produit.
+                You haven't bought any product yet !
             </div>
 
         {% else %}
@@ -29,11 +29,11 @@
                             <i>{{ product.description }}</i> <br>
                             <br>
                             <small class="text-muted">
-                                Acheté le {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                                Bought {{ product.soldDate | date("m/d/Y à H:m:s")}}
                             </small>
                         </div>
                         <div class="col-md-2">
-                            Prix : {{ product.price }} €
+                            Price : {{ product.price }} €
                         </div>
                         <div class="col-md-1">
                             <a  class="btn btn-primary btn-sm" href="{{ path('mh_store_view', {'id': product.id}) }}"><i class="fa fa-search" aria-hidden="true"></i></a>

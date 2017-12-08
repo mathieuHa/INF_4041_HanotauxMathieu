@@ -3,7 +3,7 @@
 
 {% block bundle_body %}
 
-    <h3> Liste des produits </h3>
+    <h3> Products in sale </h3>
 
     <hr>
 
@@ -11,13 +11,16 @@
             <br>
             {% if products is empty %}
                 <div class="alert alert-info">
-                    Il n'y a aucun produit en vente actuellement, revenez plus tard.
+                    There is no product on sales currently, please come back later.
                 </div>
 
             {% else %}
                 {% include('MHStoreBundle:Template:list-product.html.twig') %}
             {% endif %}
+
     </div>
+                <br>
+                <br>
 
 
 {% endblock %}

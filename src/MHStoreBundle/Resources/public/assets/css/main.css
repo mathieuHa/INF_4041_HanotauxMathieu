@@ -1,6 +1,18 @@
 .jumbotron {
-    height: 200px;
+    height: 250px;
+    background-color: #eff2e4;
 }
 h4 {
     color: #528eff;"
+}
+
+footer {
+    background: #EDEFF1;
+    height: auto;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    position: relative;
+    width: 100%;
+    border-bottom: 1px solid #CCCCCC;
+    border-top: 1px solid #DDDDDD;
 }

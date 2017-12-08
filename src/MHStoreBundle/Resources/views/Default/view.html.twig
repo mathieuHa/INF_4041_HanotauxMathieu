@@ -3,7 +3,7 @@
 
 {% block bundle_body %}
 
-    <h3> Visualisation d'un produit </h3>
+    <h3> Visualization of a product </h3>
 
     <hr>
 
@@ -21,18 +21,18 @@
             {% if product.sold %}
                 {% if product.seller.id == app.user.id %}
                     <small class="text-muted">
-                        Vendu le {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                        Sold {{ product.soldDate | date("m/d/Y à H:m:s")}}
                     </small>
                 {% else %}
                     <small class="text-muted">
-                        Acheté le {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                        Bought {{ product.setupDate | date("m/d/Y à H:m:s")}}
                     </small>
                 {% endif %}
             {% endif %}
         </div>
 
         <div class="col-sm-6 col-6 col-md-2 col-lg-2">
-            Prix : {{ product.price }} €
+            Price : {{ product.price }} €
         </div>
 
         <div class="col-sm-6 col-6 col-md-2 col-lg-2">
@@ -41,11 +41,11 @@
                     <a class="btn  btn-warning" href="{{ path('mh_store_edit', {'id' : product.id}) }}"><i class="fa fa-edit" aria-hidden="true"></i></a>
                     <a class="btn btn-danger" href="{{ path('mh_store_delete', {'id' : product.id}) }}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 {% else %}
-                    <a class="btn btn-warning btn-sm">vendu</a>
+                    <a class="btn btn-warning btn-sm">sold</a>
                 {% endif %}
             {% else %}
                 {% if not product.sold %}
-                        <a class="btn btn-success" href="{{ path('mh_store_buy', {'id' : product.id}) }}"> acheter</a>
+                        <a class="btn btn-success" href="{{ path('mh_store_buy', {'id' : product.id}) }}"> order</a>
                 {% endif %}
             {% endif %}
         </div>

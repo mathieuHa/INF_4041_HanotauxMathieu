@@ -2,15 +2,15 @@
 
 {% block bundle_body %}
 
-    <h3> Accueil </h3>
+    <h3> Home </h3>
 
     <hr>
     <div class="row">
         <div class="col-md-8">
-            <h4>Derniers produits mis en vente</h4>
+            <h4>Last product in sales</h4>
             {% if products is empty %}
                 <div class="alert alert-info">
-                    Il n'y a aucun produit en vente actuellement, revenez plus tard.
+                    There is no product on sales currently, please come back later.
                 </div>
 
             {% else %}
@@ -20,17 +20,19 @@
         </div>
         {% if app.user %}
             <div class="col-md-4">
-                <a href="{{ path('mh_store_add') }}" class="btn btn-success">Ajouter une annonce</a>
+                <a href="{{ path('mh_store_add') }}" class="btn btn-success">Add a product</a>
 
-                <a href="{{ path('mh_store_list') }}" class="btn btn-primary">Voir toute les annonces</a>
+                <a href="{{ path('mh_store_list') }}" class="btn btn-primary">See all products</a>
             </div>
         {% else %}
             <div class="col-md-4">
-                <a href="{{ path('fos_user_security_login') }}" class="btn btn-light ">Se connecter</a>
-                <a href="{{ path('mh_store_list') }}" class="btn btn-primary ">Voir toute les annonces</a>
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-light">Login</a>
+                <a href="{{ path('mh_store_list') }}" class="btn btn-primary ">See all products</a>
             </div>
         {% endif %}
 
     </div>
+                <br>
+                <br>
 
 {% endblock %}

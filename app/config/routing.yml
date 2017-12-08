@@ -7,6 +7,9 @@ root:
 mh_store:
     resource: "@MHStoreBundle/Resources/config/routing.yml"
 
+fos_user_profile_show:
+    path: /list
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

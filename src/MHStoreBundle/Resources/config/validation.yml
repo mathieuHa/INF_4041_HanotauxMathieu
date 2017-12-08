@@ -6,8 +6,8 @@ MHStoreBundle\Entity\Product:
             - Range:
                 min: 1
                 max: 100000
-                minMessage: Minimum 1 euros
-                maxMessage: Maximum 100000 euros
+                minMessage: Min 1 euros
+                maxMessage: Max 100000 euros
         name:
             - NotBlank: ~
             - Type: String
@@ -23,5 +23,5 @@ MHStoreBundle\Entity\Credit:
             - Range:
                 min: 1
                 max: 100000
-                minMessage: Minimum 1 euros
-                maxMessage: Maximum 100000 euros
+                minMessage: Min 1 euros
+                maxMessage: Max 100000 euros

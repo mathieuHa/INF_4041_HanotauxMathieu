@@ -4,7 +4,6 @@ namespace MHStoreBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,9 +17,9 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('price', IntegerType::class)
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
+            ->add('price', IntegerType::class, array('attr' => array('placeholder' => '100')))
+            ->add('name', TextType::class, array('attr' => array('placeholder' => 'Suitcase')))
+            ->add('description', TextareaType::class, array('attr' => array('placeholder' => 'Very good condition, little used ..')))
             ->add('image', ImageType::class,['required' => false]);
     }
     
