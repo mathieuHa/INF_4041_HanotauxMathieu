@@ -21,11 +21,11 @@
             {% if product.sold %}
                 {% if product.seller.id == app.user.id %}
                     <small class="text-muted">
-                        Sold {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                        Sold {{ product.soldDate | date("m/d/Y at H:m:s")}}
                     </small>
                 {% else %}
                     <small class="text-muted">
-                        Bought {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                        Bought {{ product.setupDate | date("m/d/Y at H:m:s")}}
                     </small>
                 {% endif %}
             {% endif %}

@@ -30,10 +30,10 @@
                         <br>
                         <div class="text-muted">
                             {% if product.sold %}
-                                Sold {{ product.soldDate | date("m/d/Y à H:m:s")}}
+                                Sold {{ product.soldDate | date("m/d/Y at H:m:s")}}
                             {% else %}
 
-                                Put on sale {{ product.setupDate | date("m/d/Y à H:m:s")}}
+                                Put on sale {{ product.setupDate | date("m/d/Y at H:m:s")}}
                             {% endif %}
                         </div>
                     </div>
